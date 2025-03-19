@@ -40,15 +40,15 @@ class URLSearchParams{
   toString(){
     let res = '';
     Object.entries(this.searchParams).forEach(item => {
-      if(Array.isArray(item)){
+      if(Array.isArray(item[1])){
         let s = ''
-        item.forEach(i => s+=`&${item[0]}=${i}`)
+        item[1].forEach(i => s+=`&${item[0]}=${i}`)
         res+=s
       }else{
         res+=`&${item[0]}=${item[1]}`
       }
     })
-    return res
+    return res.slice(1)
   }
 
   // yield 不能在只能在生成器内部直接调用，不能在回调函数中调用
