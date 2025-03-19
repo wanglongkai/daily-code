@@ -11,7 +11,7 @@ searchParams = new URLSearchParams({foo: "1", bar: "2"})
 */
 
 class URLSearchParams{
-  construcor(params){
+  constructor(params){
     this.searchParams = params
     if(typeof params === 'string'){
       this.searchParams = this.formatParams(params)
@@ -26,12 +26,12 @@ class URLSearchParams{
   }
 
   has(key){
-    return this.searchParams.hasOwnPropery(key)
+    return this.searchParams.hasOwnProperty(key)
   }
 
   append(key, value){
     if(this.has(key)){
-      this.searchParams[key] = [...(Array.is(this.searchParams[key]) ? this.searchParams[key] : [this.searchParams[key]]), value]
+      this.searchParams[key] = [...(Array.isArray(this.searchParams[key]) ? this.searchParams[key] : [this.searchParams[key]]), value]
     }else{
       this.set(key, value)
     }
@@ -59,6 +59,14 @@ class URLSearchParams{
   }
 
   formatParams(str){
+    console.log(Object.fromEntries(str.split('&').map(item => item.split('='))), 62)
     return Object.fromEntries(str.split('&').map(item => item.split('=')))
   }
 }
+
+let searchParams = new URLSearchParams("foo=1&bar=2&wlk=25");
+searchParams.append("wlk", "wanglongkai")
+for (const [key, value] of searchParams) {
+    console.log(key, value)
+}
+console.log(searchParams.toString())
